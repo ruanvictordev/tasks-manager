@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { throwResError } from '../utils/utils.js';
-import { hashPassword ,comparePassword } from '../utils/utils.js';
+import { generateWebToken, throwResError } from '../utils/utils.js';
+import { hashPassword , comparePassword } from '../utils/utils.js';
 
 const prisma = new PrismaClient();
 
@@ -27,8 +27,19 @@ export const loginUser = async (res, userData) => {
 
         if (!isPasswordValid) return throwResError('Incorrect Password', res);
 
+        await generateWebToken(user, res);
+
         res.status(200).json({ message: 'Logged Successfuly!', user });
     } catch (error) {
         throwResError('Login Error', res);
+    }
+};
+
+export const logoutUser = async (res) => {
+    try {
+        res.clearCookie('jwt');
+        res.status(200).json({ message: 'Logged Out Successfully!' });
+    } catch (error) {
+        throwResError('Logout Error', res);
     }
 };

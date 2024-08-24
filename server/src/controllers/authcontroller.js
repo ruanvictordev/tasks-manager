@@ -1,7 +1,11 @@
-import { registerUser, loginUser } from "../services/authService.js";
+import { registerUser, loginUser, logoutUser } from "../services/authService.js";
 
 export const login = async (req, res) => {
     await loginUser(res, {email: req.body.email, passwordHash: req.body.passwordHash});
+};
+
+export const logout = async (req, res) => {
+    await logoutUser(res);
 };
 
 export const register = async (req, res) => {

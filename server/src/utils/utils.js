@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const hashPassword = async (plainPassword) => {
     try {
@@ -19,6 +20,19 @@ export const comparePassword = async (plainPassword, hashedPassword) => {
     }
 };
 
+export const generateWebToken = (user, res) => {
+    const token = jwt.sign(
+        { id: user.id, name: user.name, email: user.email }, 
+        process.env.JWT_SECRET, 
+        { expiresIn: '1h' }
+    );
+    
+    res.cookie('jwt', token, {
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: 3600000
+    });
+}
 
 export function throwResError (message, res){
     return res.json({
