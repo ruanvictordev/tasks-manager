@@ -1,9 +1,9 @@
-import { createUser } from "../services/authService.js";
+import { registerUser, loginUser } from "../services/authService.js";
 
-export const login = (req, res) => {
-    res.send('<h1>Login Page</h1>');
+export const login = async (req, res) => {
+    await loginUser(res, {email: req.body.email, passwordHash: req.body.passwordHash});
 };
 
-export const register = (req, res) => {
-    createUser(res, {email: req.body.email, name: req.body.name, passwordHash: req.body.passwordHash});
+export const register = async (req, res) => {
+    await registerUser(res, {email: req.body.email, name: req.body.name, passwordHash: req.body.passwordHash});
 };
