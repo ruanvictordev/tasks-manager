@@ -34,6 +34,22 @@ export const generateWebToken = (user, res) => {
     });
 }
 
+export const authenticateToken = (req, res, next) => {
+    const token = req.cookies.jwt;
+
+    if (!token) {
+        return res.status(401).json({ error: 'Access Denied: No Token Provided' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.authorId = decoded.id;
+        next();
+    } catch (error) {
+        res.status(400).json({ error: 'Invalid Token' });
+    }
+};
+
 export function throwResError (message, res){
     return res.json({
         error: message

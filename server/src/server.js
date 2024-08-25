@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import authRouter from './routes/authRoutes.js';
 import taskRouter from './routes/tasksRoutes.js';
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 app.use(authRouter);
