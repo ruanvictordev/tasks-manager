@@ -5,17 +5,19 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Userpage from './pages/Userpage/Userpage';
+import Layout from './components/MainLayout/MainLayout'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
     <Router>
-      <div>
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/userpage" element={
+          <Route path="/userpage" 
+            element={
               <PrivateRoute>
                 <Userpage />
               </PrivateRoute>
@@ -23,9 +25,9 @@ function App() {
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </div>
+      </Layout>
     </Router>
-  )
+  );
 }
 
 export default App
