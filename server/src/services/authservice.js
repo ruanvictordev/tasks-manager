@@ -1,19 +1,23 @@
 import { PrismaClient } from '@prisma/client';
-import { generateWebToken, throwResError } from '../utils/utils.js';
+import { generateWebToken, throwResError, validateUserData } from '../utils/utils.js';
 import { hashPassword , comparePassword } from '../utils/utils.js';
 
 const prisma = new PrismaClient();
 
 export const registerUser = async (res, userData) => {
     try {
+        const validation = validateUserData(userData);
+
+        if (!validation.isValid) return throwResError(validation.message, res);;
+
         const hashedPassword = await hashPassword(userData.passwordHash);
 
-        const userWithHashedPassword = {...userData, passwordHash: hashedPassword};
+        const userWithHashedPassword = { ...userData, passwordHash: hashedPassword };
 
         const user = await prisma.user.create({ data: userWithHashedPassword });
-        res.status(201).json(user);
+        res.status(201).json({ message: 'Account Created!', user });
     } catch (error) {
-        throwResError('Error When Create User', res);
+        return res.status(500).json({ error: 'Error When Create User' });
     }
 };
 

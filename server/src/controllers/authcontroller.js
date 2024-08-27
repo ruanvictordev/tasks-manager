@@ -9,5 +9,5 @@ export const logout = async (req, res) => {
 };
 
 export const register = async (req, res) => {
-    await registerUser(res, {email: req.body.email, name: req.body.name, passwordHash: req.body.passwordHash});
+    await registerUser(res, {email: req.body.email, name: req.body.name, passwordHash: req.body.password});
 };

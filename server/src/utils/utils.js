@@ -20,6 +20,20 @@ export const comparePassword = async (plainPassword, hashedPassword) => {
     }
 };
 
+export function validateUserData(userData) {
+    const { name, email, passwordHash } = userData;
+
+    if (!name || name.length > 40) return { isValid: false, message: "Input a valid name!" };
+
+    if (!passwordHash || passwordHash.length < 8) return { isValid: false, message: "Password must be at least 8 characters long" };
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) return { isValid: false, message: "Invalid Email Format!" };
+
+    return { isValid: true };
+}
+
+
 export const generateWebToken = (user, res) => {
     const token = jwt.sign(
         { id: user.id, name: user.name, email: user.email }, 
