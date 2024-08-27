@@ -28,9 +28,11 @@ export const generateWebToken = (user, res) => {
     );
     
     res.cookie('jwt', token, {
-        httpOnly: true,
-        sameSite: "lax",
-        maxAge: 3600000
+        httpOnly: false, 
+        sameSite: 'lax',
+        maxAge: 3600000,
+        path: '/', 
+        domain: 'localhost' 
     });
 }
 

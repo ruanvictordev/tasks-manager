@@ -21,19 +21,20 @@ export const loginUser = async (res, userData) => {
     try {
         const user = await prisma.user.findUnique({ where: { email: userData.email } });
 
-        if (!user) return throwResError('User not Found', res);
+        if (!user) return throwResError('Email or Password Incorrect!', res);
 
         const isPasswordValid = await comparePassword(userData.passwordHash, user.passwordHash);
 
-        if (!isPasswordValid) return throwResError('Incorrect Password', res);
+        if (!isPasswordValid) return throwResError('Email or Password Incorrect!', res);
 
         await generateWebToken(user, res);
-
-        res.status(200).json({ message: 'Logged Successfuly!', user });
+        res.status(200).json({ message: 'Logged Successfully!', user });
     } catch (error) {
         throwResError('Login Error', res);
     }
 };
+
+
 
 export const logoutUser = async (res) => {
     try {
