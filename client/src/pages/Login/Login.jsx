@@ -12,18 +12,18 @@ export default function Login() {
     <section className="flex flex-col justify-center items-center">
       <div className='flex flex-col gap-4 justify-center items-center'>
           <h1 className='text-6xl text-center text-brand-tertiayColor font-bold'>Login as User</h1>
-          <h2 className='text-slate-400 text-center text-lg'>Access your acount and finish your tasks!</h2>
+          <h2 className='text-slate-400 text-center text-lg'>Access your acount and complete your tasks!</h2>
       </div>
       <Form onSubmit={handleSubmit}>
         <h2 className="text-center text-2xl text-brand-tertiayColor font-bold">
           Login
         </h2>
         <label>
-          Os campos com <span className="text-red-700">*</span> são obrigatórios.
+          The fields with: <span className="text-red-700">*</span> are required.
         </label>
         <div>
           <label>
-            <span className="text-red-700">*</span> Informe seu email:
+            <span className="text-red-700">*</span> Input your email:
           </label>
           <Input
             type="email"
@@ -35,11 +35,11 @@ export default function Login() {
         </div>
         <div>
           <label>
-            <span className="text-red-700">*</span> Informe sua senha:
+            <span className="text-red-700">*</span> Input your password:
           </label>
           <Input
             type="password"
-            placeholder="Senha"
+            placeholder="Password"
             value={password}
             onChange={handlePasswordChange}
             className="bg-transparent"
@@ -52,7 +52,7 @@ export default function Login() {
           className="w-full"
           onClick={handleSubmit}
         >
-          Entrar
+          Login
         </Button>
       </Form>
       <Toaster />
