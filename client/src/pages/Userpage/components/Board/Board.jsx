@@ -15,7 +15,7 @@ export default function Board() {
   }
 
   return (
-    <section className='flex w-full gap-28 justify-between min-h-80 max-md:flex-col'>
+    <section className='flex w-full gap-28 justify-between min-h-80 max-lg:flex-col'>
       <Column 
         title="Pending" 
         imageSrc="/icons/pending.svg" 

@@ -1,6 +1,6 @@
 import express from 'express';
 import { createTask, getTasksByStatus, getTaskById, deleteTaskById } from '../controllers/tasksController.js';
-import { authenticateToken } from '../utils/utils.js';
+import { authenticateToken } from '../utils/authUtils.js';
 
 const router = express.Router();
 

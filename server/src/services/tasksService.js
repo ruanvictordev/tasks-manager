@@ -1,22 +1,27 @@
 import { PrismaClient } from '@prisma/client';
 import { throwResError } from '../utils/utils.js';
+import { validateTasksData } from '../utils/tasksUtils.js';
 
 const prisma = new PrismaClient();
 
-export const createNewTask = async (res, taskData) => {
+export const createNewTask = async (res, tasksData) => {
     try {
+        const validation = validateTasksData(tasksData);
+
+        if(!validation.isValid) return throwResError(validation.message, res);
+
         const newTask = await prisma.task.create({
             data: {
-                title: taskData.title,
-                description: taskData.description,
-                status: taskData.status || 'pending', 
-                priority: taskData.priority || 1,     
-                authorId: taskData.userId,          
+                title: tasksData.title,
+                description: tasksData.description,
+                status: tasksData.status || 'pending', 
+                priority: tasksData.priority || 1,     
+                authorId: tasksData.userId,          
                 createdAt: new Date(),                
             }
         });
 
-        res.status(201).json(newTask);
+        res.status(201).json({ message: 'Task Created!', newTask });
     } catch (error) {
         throwResError('Error While Creating a New Task.', res);
     }

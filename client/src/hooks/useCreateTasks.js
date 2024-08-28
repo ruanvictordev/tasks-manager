@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 
 export default function useCreateTask() {
+  const navigate = useNavigate();
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [taskStatus, setTaskStatus] = useState('pending'); // Valor padrão
@@ -29,6 +31,11 @@ export default function useCreateTask() {
         toast.error(response.data.error);
       } else {
         toast.success(response.data.message);
+
+        setTimeout(() => {
+          navigate('/userpage');
+        }, 1000);
+        
         setTaskName('');
         setTaskDescription('');
         setTaskStatus('pending');

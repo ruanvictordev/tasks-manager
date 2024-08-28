@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { generateWebToken, throwResError, validateUserData } from '../utils/utils.js';
-import { hashPassword , comparePassword } from '../utils/utils.js';
+import { generateWebToken, validateUserData, hashPassword , comparePassword } from '../utils/authUtils.js';
+import { throwResError } from '../utils/utils.js';
 
 const prisma = new PrismaClient();
 
@@ -8,7 +8,7 @@ export const registerUser = async (res, userData) => {
     try {
         const validation = validateUserData(userData);
 
-        if (!validation.isValid) return throwResError(validation.message, res);;
+        if (!validation.isValid) return throwResError(validation.message, res);
 
         const hashedPassword = await hashPassword(userData.passwordHash);
 

@@ -10,16 +10,7 @@ import PopupModal from "./components/PopupModal/PopupModal";
 
 export default function Userpage() {
   const userName = useInfoUser();
-  const {
-    taskName,
-    taskDescription,
-    taskStatus,
-    taskPriority,
-    handleTaskNameChange,
-    handleTaskDescriptionChange,
-    handleTaskStatusChange,
-    handleTaskPriorityChange,
-    handleCreateTask,
+  const {taskName,taskDescription,taskStatus,taskPriority,handleTaskNameChange,handleTaskDescriptionChange,handleTaskStatusChange,handleTaskPriorityChange,handleCreateTask,
   } = useCreateTask();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
