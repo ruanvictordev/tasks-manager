@@ -23,4 +23,4 @@ const useInfoUser = () => {
   return userName; 
 };
 
-export default useUserName;
+export default useInfoUser;
