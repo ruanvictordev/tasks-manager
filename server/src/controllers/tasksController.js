@@ -2,15 +2,16 @@ import { createNewTask, deleteTask, getTask, getTasks } from "../services/tasksS
 
 export const createTask = async (req, res) => {
     const { title, description, status, priority } = req.body;
-    const authorId = req.authorId; // Middleware token
+    const userId = req.userId; // Middleware token
 
-    await createNewTask(res, {title, description, status, priority, authorId});
+    await createNewTask(res, {title, description, status, priority, userId});
 };
 
 export const getTasksByStatus = async (req, res) => {
     const { status } = req.params;
+    const userId = req.userId;
 
-    await getTasks(res, status);
+    await getTasks(res, status, userId);
 };
 
 export const getTaskById = async (req, res) => {

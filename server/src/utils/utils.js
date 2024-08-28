@@ -59,7 +59,7 @@ export const authenticateToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.authorId = decoded.id;
+        req.userId = decoded.id;
         next();
     } catch (error) {
         res.status(400).json({ error: 'Invalid Token' });

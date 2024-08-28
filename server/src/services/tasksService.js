@@ -11,7 +11,7 @@ export const createNewTask = async (res, taskData) => {
                 description: taskData.description,
                 status: taskData.status || 'pending', 
                 priority: taskData.priority || 1,     
-                authorId: taskData.authorId,          
+                authorId: taskData.userId,          
                 createdAt: new Date(),                
             }
         });
@@ -22,7 +22,7 @@ export const createNewTask = async (res, taskData) => {
     }
 };
 
-export const getTasks = async (res, status) => {
+export const getTasks = async (res, status, userId) => {
     const validStatuses = ['pending', 'in-progress', 'completed'];
 
     if (!validStatuses.includes(status)) {
@@ -31,7 +31,7 @@ export const getTasks = async (res, status) => {
 
     try {
         const tasks = await prisma.task.findMany({
-            where: { status: status },
+            where: { status: status, authorId: userId },
             orderBy: { createdAt: 'desc' }
         });
         res.status(200).json(tasks);
