@@ -14,7 +14,7 @@ app.use(cors({
 }));
 
 app.use('/', (req, res) =>{
-    res.send('Server...........')
+    res.json({ message: "Hello backend"});
 });
 
 app.use('/api', authRouter);
