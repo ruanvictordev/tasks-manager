@@ -16,6 +16,7 @@ app.use(cors({
 app.use('/api', authRouter);
 app.use('/api', taskRouter);
 
-app.listen(8000, () => {
-    console.log('Server is running at port: 8000');
+const PORT = process.env.PORT || 8001;
+app.listen(PORT, () => {
+    console.log('Server is running at port: ' + PORT);
 });
