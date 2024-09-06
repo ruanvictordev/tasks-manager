@@ -6,7 +6,7 @@ export default function Column({ title, imageSrc, count, children }) {
       <div className="flex justify-between items-center">
         <div className="flex gap-2 items-center">
           <img className="w-5" src={imageSrc} alt={`${title} icon`} />
-          <h1>{title}</h1>
+          <h3>{title}</h3>
         </div>
         <span className="bg-slate-600 text-brand-whiteColor text-sm font-bold py-1 px-2 rounded-sm">
           {count}

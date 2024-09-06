@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://tasks-manager-api-kbet.onrender.com',
+      '/api': 'http://localhost:8000/',
     },
   },
 })

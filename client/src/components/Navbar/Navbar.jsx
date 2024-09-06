@@ -23,7 +23,7 @@ export default function Navbar() {
           <img src="square-check-solid.svg" className="w-4" />
           <h1>Tasks Manager</h1>
         </div>
-        <div>
+        <div className="flex justify-center items-center">
           {token ? (
             <Button bgColor="bg-brand-whiteColor" fontColor="text-brand-primaryColor"
               onClick={handleLogout}
@@ -31,7 +31,7 @@ export default function Navbar() {
               Logout
             </Button>
           ) : (
-            <div className="flex gap-8 max-md:gap-4">
+            <div className="flex justify-center items-center gap-8 max-md:gap-4">
               <Button bgColor="bg-brand-whiteColor" fontColor="text-brand-primaryColor"
                 onClick={() => navigate("/register")}
               >

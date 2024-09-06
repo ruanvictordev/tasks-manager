@@ -4,7 +4,7 @@ import { validateTasksData } from '../utils/tasksUtils.js';
 
 const prisma = new PrismaClient();
 
-export const createNewTask = async (res, tasksData) => {
+export const createTaskService = async (res, tasksData) => {
     try {
         const validation = validateTasksData(tasksData);
 
@@ -23,11 +23,39 @@ export const createNewTask = async (res, tasksData) => {
 
         res.status(201).json({ message: 'Task Created!', newTask });
     } catch (error) {
+        console.error('Update Task Error:', error);
         throwResError('Error While Creating a New Task.', res);
     }
 };
 
-export const getTasks = async (res, status, userId) => {
+export const updateTaskService = async (res, taskData) => {
+    const { id, title, description, status, priority, userId } = taskData;
+
+    try {
+        const validation = validateTasksData({ title, description, status, priority });
+        if (!validation.isValid) return throwResError(validation.message, res);
+
+        const task = await prisma.task.findUnique({ where: { id } });
+        if (!task) return res.status(404).json({ error: 'Task not found' });
+        if (task.authorId !== userId) return res.status(403).json({ error: 'Unauthorized' });
+
+        const updatedTask = await prisma.task.update({
+            where: { id },
+            data: {
+                title: title || task.title,
+                description: description || task.description,
+                status: status || task.status,
+                priority: priority || task.priority
+            }
+        });
+
+        res.status(200).json({ message: 'Task updated successfully', updatedTask });
+    } catch (error) {
+        throwResError('Error updating task', res);
+    }
+};
+
+export const getTasksService = async (res, status, userId) => {
     const validStatuses = ['pending', 'in-progress', 'completed'];
 
     if (!validStatuses.includes(status)) {
@@ -45,7 +73,7 @@ export const getTasks = async (res, status, userId) => {
     }
 };
 
-export const getTask = async (res, id) => {
+export const getTaskService = async (res, id) => {
     try {
         const task = await prisma.task.findUnique({ where: { id: id } });
 
@@ -57,7 +85,7 @@ export const getTask = async (res, id) => {
     }
 };
 
-export const deleteTask = async (res, id) => {
+export const deleteTaskService = async (res, id) => {
     try {
         const task = await prisma.task.delete({ where: {id: id} });
 

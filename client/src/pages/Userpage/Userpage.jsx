@@ -21,7 +21,7 @@ export default function Userpage() {
   return (
     <section className="flex flex-col gap-8 justify-center items-center">
       <div className="flex flex-col gap-4 justify-center items-center">
-        <h1 className="text-6xl text-center text-brand-tertiayColor font-bold">
+        <h1 className="text-6xl text-center text-brand-tertiayColor font-bold m-0">
           Welcome, {userName}!
         </h1>
         <h2 className="text-slate-400 text-center text-lg">
