@@ -17,6 +17,8 @@ This project is a task management application built with React, Node.js, Express
 <br></br>
 <a href="https://github.com/ruanvictordev/tasks-manager"><strong>Explore the docs »</strong></a>
 <br></br>
+
+https://github.com/user-attachments/assets/6ca30ab0-0bf7-43de-987c-b18e6366fe5b
   
 </div>
 
